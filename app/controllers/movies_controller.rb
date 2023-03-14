@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
 
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+    @movies = policy_scope(Movie)
   end
 
   # GET /movies/1 or /movies/1.json
@@ -55,6 +55,7 @@ class MoviesController < ApplicationController
   # DELETE /movies/1 or /movies/1.json
   def destroy
     @movie.destroy
+    authorize @movie
 
     respond_to do |format|
       format.html { redirect_to movies_url, notice: "Movie was successfully destroyed." }
